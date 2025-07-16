@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>성경마스터 인증게임</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Pretendard', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f4f8;
+            font-family: 'Pretendard', sans-serif;
+        }
+
+        #game-container {
+            width: 100%;
+            max-width: 430px;
+            height: 100vh;
+            max-height: 932px;
+            background-color: rgba(255, 255, 255, 0.92);
+            background-image: url('https://images.unsplash.com/photo-1484557985045-edf25e08da73?auto=format&fit=crop&w=1000&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-blend-mode: overlay;
+            border-radius: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .screen {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.85);
+        }
+
+        #start-screen {
+            justify-content: center;
+            padding-top: 12%;
+        }
+
+        .main-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #2c5282;
+            margin-bottom: 45px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 15px 25px;
+            border-radius: 15px;
+        }
+
+        .instruction-primary {
+            font-size: 22px;
+            color: #2b6cb0;
+            margin-bottom: 25px;
+            font-weight: 600;
+            line-height: 1.6;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 10px 20px;
+            border-radius: 10px;
+        }
+
+        .instruction-secondary {
+            font-size: 18px;
+            color: #4a5568;
+            margin-bottom: 15px;
+            line-height: 1.8;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 10px 20px;
+            border-radius: 10px;
+        }
+
+        .start-button {
+            margin-top: 40px;
+            padding: 15px 40px;
+            font-size: 20px;
+            background-color: #3182ce;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .start-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+            background-color: #2b6cb0;
+        }
+
+        .screen.active {
+            display: flex;
+        }
+
+        .title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2d3748;
+            margin: 40px 0;
+        }
+
+        .description {
+            font-size: 18px;
+            color: #4a5568;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        .button {
+            background-color: #4299e1;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 10px;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin: 10px 0;
+        }
+
+        .button:hover {
+            transform: scale(1.05);
+        }
+
+        #timer-bar {
+            width: 100%;
+            height: 10px;
+            background-color: #e2e8f0;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        #timer-progress {
+            width: 100%;
+            height: 100%;
+            background-color: #48bb78;
+            border-radius: 5px;
+            transition: width 0.1s linear;
+        }
+
+        #question-container {
+            font-size: 24px;
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #f7fafc;
+            border-radius: 10px;
+            width: 90%;
+        }
+
+        #answer-input {
+            font-size: 20px;
+            padding: 10px 20px;
+            border: 2px solid #cbd5e0;
+            border-radius: 10px;
+            width: 80%;
+            margin: 20px 0;
+        }
+
+        .score {
+            font-size: 20px;
+            color: #2d3748;
+            margin: 20px 0;
+        }
+
+        .certificate {
+            background-color: #f7fafc;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 20px 0;
+            width: 90%;
+            text-align: center;
+            background-image: linear-gradient(to bottom, #ffffff, #f7fafc);
+            border: 2px solid #e2e8f0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .certificate::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border: 2px solid transparent;
+            border-radius: 15px;
+            background: linear-gradient(45deg, 
+                #d4af37 0%, 
+                #f9f095 25%, 
+                #d4af37 50%, 
+                #f9f095 75%, 
+                #d4af37 100%
+            );
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            -webkit-mask-composite: xor;
+            animation: borderAnimation 4s linear infinite;
+        }
+
+        @keyframes borderAnimation {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 200% 0%; }
+        }
+
+        .certificate-title {
+            font-size: 24px;
+            color: #2c5282;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            position: relative;
+            display: inline-block;
+            white-space: nowrap;
+            padding: 0 20px;
+        }
+
+        .certificate-title::before,
+        .certificate-title::after {
+            content: '✦';
+            color: #d4af37;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+        }
+
+        .certificate-title::before {
+            left: -5px;
+        }
+
+        .certificate-title::after {
+            right: -5px;
+        }
+
+        .certificate-date {
+            font-size: 18px;
+            color: #4a5568;
+            margin-top: 30px;
+            font-family: 'Pretendard', sans-serif;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 20px;
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #flying-image {
+            position: absolute;
+            display: none;
+            width: 100px;
+            height: auto;
+        }
+
+        @keyframes flyAcross {
+            from { left: -100px; }
+            to { left: 100%; }
+        }
+        .result-message {
+            font-size: 22px;
+            color: #2d3748;
+            margin: 20px 0;
+            line-height: 1.5;
+            white-space: pre-line;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <!-- 시작 화면 -->
+        <div id="start-screen" class="screen active">
+            <h1 class="main-title">성경마스터 인증게임!</h1>
+            <p class="instruction-primary">
+                👉 15초 안에 괄호 안에<br>
+                알맞은 단어를 입력하세요!
+            </p>
+            <p class="instruction-secondary">
+                총 3문제가 출제되며,<br>
+                맞춘 문제 수에 따라<br>
+                각기 다른 인증서가 발급됩니다!
+            </p>
+            <p class="instruction-secondary" style="margin-top: 20px;">
+                준비되면 시작 버튼을 눌러주세요!
+            </p>
+            <button class="start-button" onclick="startGame()">시작하기 ▶️</button>
+        </div>
+
+        <!-- 게임 화면 -->
+        <div id="game-screen" class="screen">
+            <div class="score">정답: <span id="current-score">0</span>/3</div>
+            <div id="timer-bar">
+                <div id="timer-progress"></div>
+            </div>
+            <div id="question-container"></div>
+            <input type="text" id="answer-input" placeholder="답을 입력하세요">
+            <button class="button" onclick="checkAnswer()">확인</button>
+        </div>
+
+        <!-- 결과 화면 -->
+        <div id="result-screen" class="screen">
+            <div id="result-message" class="title"></div>
+            <div class="certificate">
+                <h2 id="certificate-title" class="certificate-title"></h2>
+                <div id="certificate-date" class="certificate-date"></div>
+            </div>
+            <button class="button" onclick="goToHome()">홈으로 🏠</button>
+        </div>
+    </div>
+
+    <img id="flying-image" src="assets/ggg.png" alt="Flying Image">
+
+    <script type="module">
+        import { bibleVerses, getRandomVerses } from './src/data/bibleVerses.js';
+        
+        let currentVerses = [];
+        let currentQuestion = 0;
+        let score = 0;
+        let timer = null;
+        const timeLimit = 15000; // 15초
+
+        // 오디오 객체들
+        const successSound = new Audio('assets/Ascending 3.mp3');
+        const failSound = new Audio('assets/fail_02.mp3');
+        const finalSuccessSound = new Audio('assets/suc_01.wav');
+
+        // 게임 시작 함수
+        async function startGame() {
+            currentVerses = getRandomVerses(3);
+            currentQuestion = 0;
+            score = 0;
+            showScreen('game-screen');
+            displayQuestion();
+        }
+
+        // 문제 표시 함수
+        function displayQuestion() {
+            document.getElementById('current-score').textContent = score;
+            const currentVerse = currentVerses[currentQuestion];
+            document.getElementById('question-container').textContent = 
+                currentVerse.verse + ' ' + currentVerse.source;
+            document.getElementById('answer-input').value = '';
+            startTimer();
+        }
+
+        function startTimer() {
+            let timeLeft = timeLimit;
+            const progress = document.getElementById('timer-progress');
+            progress.style.width = '100%';
+
+            if (timer) clearInterval(timer);
+
+            timer = setInterval(() => {
+                timeLeft -= 100;
+                progress.style.width = (timeLeft / timeLimit * 100) + '%';
+
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    handleFailure();
+                }
+            }, 100);
+        }
+
+        function checkAnswer() {
+            clearInterval(timer);
+            const userAnswer = document.getElementById('answer-input').value.trim();
+            const correctAnswer = currentVerses[currentQuestion].answer;
+
+            if (userAnswer === correctAnswer) {
+                handleSuccess();
+            } else {
+                handleFailure();
+            }
+        }
+
+        function handleSuccess() {
+            score++;
+            successSound.play();
+            const currentVerse = currentVerses[currentQuestion];
+            alert('🎯 정답입니다!\n\n' + currentVerse.full + ' ' + currentVerse.source);
+            nextQuestion();
+        }
+
+        function handleFailure() {
+            failSound.play();
+            showFlyingImage();
+            const currentVerse = currentVerses[currentQuestion];
+            alert('아쉽습니다.\n정답: ' + currentVerse.answer + '\n\n' + currentVerse.full + ' ' + currentVerse.source);
+            nextQuestion();
+        }
+
+        function showFlyingImage() {
+            const img = document.getElementById('flying-image');
+            img.style.display = 'block';
+            img.style.animation = 'flyAcross 3s linear';
+            
+            setTimeout(() => {
+                img.style.display = 'none';
+                img.style.animation = '';
+            }, 3000);
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion >= currentVerses.length) {
+                showResult();
+            } else {
+                setTimeout(displayQuestion, 300);
+            }
+        }
+
+        function showResult() {
+            showScreen('result-screen');
+            let message, title;
+
+            switch(score) {
+                case 3:
+                    message = "🎉 축하합니다!\n당신은 성경을 열심히 읽는 분이시군요!!";
+                    title = "✦성경마스터";
+                    finalSuccessSound.play();
+                    break;
+                case 2:
+                    message = "🎉 축하합니다!\n당신은 성경을 쫌 읽으시는 분이시군요!";
+                    title = "✦성경마스터 예정자";
+                    finalSuccessSound.play();
+                    break;
+                case 1:
+                    message = "🎉 축하합니다!\n당신은 성경을 종종 읽는 분이시군요!";
+                    title = "✦성경마스터 잠재예정자";
+                    finalSuccessSound.play();
+                    break;
+                default:
+                    message = "아쉽습니다.\n다음엔 더 잘하실 수 있을 거에요!";
+                    title = "✦성경마스터 희망자";
+                    failSound.play();
+            }
+
+            document.getElementById('result-message').textContent = message;
+            document.getElementById('result-message').className = 'result-message';
+            document.getElementById('certificate-title').textContent = title;
+            
+            // 현재 날짜를 한국어 형식으로 표시
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = now.getMonth() + 1;
+            const day = now.getDate();
+            document.getElementById('certificate-date').textContent = 
+                `${year}년 ${month}월 ${day}일`;
+        }
+
+        function goToHome() {
+            showScreen('start-screen');
+        }
+
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            document.getElementById(screenId).classList.add('active');
+        }
+
+        // 전역 함수로 등록
+        window.startGame = startGame;
+        window.checkAnswer = checkAnswer;
+        window.goToHome = goToHome;
+    </script>
+</body>
+</html> 
