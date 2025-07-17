@@ -329,6 +329,7 @@
 
     <script src="bibleVerses.js"></script>
     <script>
+        // 전역 변수들
         let currentVerses = [];
         let currentQuestion = 0;
         let score = 0;
@@ -341,12 +342,20 @@
         const finalSuccessSound = new Audio('assets/suc_01.wav');
 
         // 게임 시작 함수
-        async function startGame() {
+        function startGame() {
             currentVerses = getRandomVerses(3);
             currentQuestion = 0;
             score = 0;
             showScreen('game-screen');
             displayQuestion();
+        }
+
+        // 화면 표시 함수
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            document.getElementById(screenId).classList.add('active');
         }
 
         // 문제 표시 함수
@@ -467,18 +476,6 @@
         function goToHome() {
             showScreen('start-screen');
         }
-
-        function showScreen(screenId) {
-            document.querySelectorAll('.screen').forEach(screen => {
-                screen.classList.remove('active');
-            });
-            document.getElementById(screenId).classList.add('active');
-        }
-
-        // 전역 함수로 등록
-        window.startGame = startGame;
-        window.checkAnswer = checkAnswer;
-        window.goToHome = goToHome;
     </script>
 </body>
 </html> 

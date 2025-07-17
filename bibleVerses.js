@@ -250,7 +250,6 @@ const bibleVerses = [
         source: "(에베소서 4:2)",
         category: "겸손"
     },
-    },
     // 8. 기도와 응답 (20개)
     {
         verse: "구하라 그러면 너희에게 (ㅈㅅ) 것이요",
