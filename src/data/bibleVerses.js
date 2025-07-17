@@ -22,9 +22,9 @@ export const bibleVerses = [
         category: "약속"
     },
     {
-        verse: "그런즉 누구든지 그리스도 안에 있으면 (ㅅㅈㅁ)이라",
-        answer: "새조물",
-        full: "그런즉 누구든지 그리스도 안에 있으면 새조물이라",
+        verse: "그런즉 누구든지 그리스도 안에 있으면 새로운 (ㅍㅈㅁ)이라",
+        answer: "피조물",
+        full: "그런즉 누구든지 그리스도 안에 있으면 새조운 피조물이라",
         source: "(고린도후서 5:17)",
         category: "약속"
     },
@@ -96,7 +96,7 @@ export const bibleVerses = [
         category: "믿음"
     },
     {
-        verse: "네가 네 (ㅁㅇㅇ)대로 보리라 하시더라",
+        verse: "네가 네 (ㅁㅇ)대로 보리라 하시더라",
         answer: "믿음",
         full: "네가 네 믿음대로 보리라 하시더라",
         source: "(마태복음 8:13)",
@@ -156,8 +156,8 @@ export const bibleVerses = [
         category: "용기"
     },
     {
-        verse: "여호와는 나의 빛이요 나의 구원이시니 내가 (ㄷㄹㅇ)할 자가 누구리요",
-        answer: "두려워",
+        verse: "여호와는 나의 빛이요 나의 (ㄱㅇ)이시니 내가 두려워할 자가 누구리요",
+        answer: "구원",
         full: "여호와는 나의 빛이요 나의 구원이시니 내가 두려워할 자가 누구리요",
         source: "(시편 27:1)",
         category: "용기"
@@ -250,14 +250,7 @@ export const bibleVerses = [
         source: "(에베소서 4:2)",
         category: "겸손"
     },
-    {
-        verse: "내가 진실로 진실로 너희에게 이르노니 한 알의 밀이 땅에 떨어져 (ㅈㅈ)하면 많은 열매를 맺느니라",
-        answer: "죽지",
-        full: "내가 진실로 진실로 너희에게 이르노니 한 알의 밀이 땅에 떨어져 죽지 않으면 한 알 그대로 있고 죽으면 많은 열매를 맺느니라",
-        source: "(요한복음 12:24)",
-        category: "인내"
     },
-
     // 8. 기도와 응답 (20개)
     {
         verse: "구하라 그러면 너희에게 (ㅈㅅ) 것이요",
@@ -328,7 +321,7 @@ export const bibleVerses = [
     // 10. 사랑과 용서 (30개)
     {
         verse: "사랑은 (ㅇㄹㅊㄱ) 사랑은 온유하며 시기하지 아니하며",
-        answer: "오래참고고",
+        answer: "오래참고",
         full: "사랑은 오래참고 사랑은 온유하며 시기하지 아니하며",
         source: "(고린도전서 13:4)",
         category: "사랑"
@@ -357,8 +350,8 @@ export const bibleVerses = [
         category: "선행"
     },
     {
-        verse: "각각 자기의 일을 (ㅅㅁ)기를 원하노라",
-        answer: "섬기",
+        verse: "각각 자기의 일을 (ㅅㄱㄱ)를 원하노라",
+        answer: "섬기기",
         full: "각각 자기의 일을 섬기기를 원하노라",
         source: "(로마서 12:11)",
         category: "섬김"
@@ -428,7 +421,7 @@ export const bibleVerses = [
         category: "교회"
     },
     {
-        verse: "형제가 연합하여 (ㄷㄷ)하는 것이 어찌 그리 선하고 아름다운고",
+        verse: "형제가 연합하여 (ㄷㄱ)하는 것이 어찌 그리 선하고 아름다운고",
         answer: "동거",
         full: "형제가 연합하여 동거하는 것이 어찌 그리 선하고 아름다운고",
         source: "(시편 133:1)",
