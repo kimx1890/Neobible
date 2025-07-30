@@ -1,13 +1,13 @@
 const CACHE_NAME = 'bible-master-v1';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/bibleVerses.js',
-  '/manifest.json',
-  '/assets/Ascending 3.mp3',
-  '/assets/fail_02.mp3',
-  '/assets/suc_01.wav',
-  '/assets/ggg.png'
+  './',
+  './index.html',
+  './bibleVerses.js',
+  './manifest.json',
+  './assets/Ascending 3.mp3',
+  './assets/fail_02.mp3',
+  './assets/suc_01.wav',
+  './assets/ggg.png'
 ];
 
 self.addEventListener('install', (event) => {
