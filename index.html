@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>성경마스터 인증게임</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4299e1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="성경마스터">
+    <link rel="apple-touch-icon" href="assets/icons/icon-152x152.png">
     <style>
         * {
             margin: 0;
@@ -328,6 +334,20 @@
     <img id="flying-image" src="assets/ggg.png" alt="Flying Image">
 
     <script src="bibleVerses.js"></script>
+    <script>
+        // Service Worker 등록
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registration successful');
+                    })
+                    .catch(err => {
+                        console.log('ServiceWorker registration failed: ', err);
+                    });
+            });
+        }
+    </script>
     <script>
         // 전역 변수들
         let currentVerses = [];
